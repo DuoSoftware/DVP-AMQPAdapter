@@ -38,24 +38,26 @@ queueConnection.on('ready', function () {
             q.subscribe(function (message) {
                 logger.info("%s: receive message:: %s", config.Host.amqpQueueName, message);
 
-                var options = {
-                    url: config.Services.eventCallbackUrl,
-                    method: 'POST',
-                    headers: {
-                        'content-type': 'application/json'
-                    },
-                    data: message
-                };
+                if(message) {
+                    var options = {
+                        url: config.Services.eventCallbackUrl,
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(message)
+                    };
 
-                try {
-                    request.post(options, function optionalCallback(err, httpResponse, body) {
-                        if (err) {
-                            logger.error('upload eventCallbackUrl failed: %j', err);
-                        }
-                        logger.info('Server accept eventCallbackUrl: %j', body);
-                    });
-                }catch (ex){
-                    logger.error('upload eventCallbackUrl failed: %j', ex);
+                    try {
+                        request.post(options, function optionalCallback(err, httpResponse, body) {
+                            if (err) {
+                                logger.error('upload eventCallbackUrl failed: %j', err);
+                            }
+                            logger.info('Server accept eventCallbackUrl: %j', body);
+                        });
+                    } catch (ex) {
+                        logger.error('upload eventCallbackUrl failed: %j', ex);
+                    }
                 }
 
             });

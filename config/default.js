@@ -10,7 +10,7 @@ module.exports = {
     "Host":
         {
             "subToAmqp": "true",
-            "amqpQueueName": "ARDS.Workers.Queue",
+            "amqpQueueName": "DashboardEvents",
             "vdomain": "localhost",
             "domain": "localhost",
             "port": "3637",
@@ -18,6 +18,6 @@ module.exports = {
         },
     "Services" :
         {
-            "eventCallbackUrl": ""
+            "eventCallbackUrl": "http://localhost:2226/DashboardEvent/Event"
         }
 }
