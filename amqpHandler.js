@@ -35,7 +35,10 @@ queueConnection.on('ready', function () {
             q.bind('#');
 
             // Receive messages
-            q.subscribe(function (message) {
+            q.subscribe({
+                ack: true,
+                prefetchCount: 10
+            }, function (message, headers, deliveryInfo, ack) {
                 logger.info("%s: receive message:: %s", config.Host.amqpQueueName, message);
 
                 if(message) {
@@ -52,12 +55,18 @@ queueConnection.on('ready', function () {
                         request.post(options, function optionalCallback(err, httpResponse, body) {
                             if (err) {
                                 logger.error('upload eventCallbackUrl failed: %j', err);
+                                return ack.reject();
+                            }else {
+                                logger.info('Server accept eventCallbackUrl: %j', body);
+                                return ack.acknowledge();
                             }
-                            logger.info('Server accept eventCallbackUrl: %j', body);
                         });
                     } catch (ex) {
                         logger.error('upload eventCallbackUrl failed: %j', ex);
+                        return ack.reject();
                     }
+                }else {
+                    return ack.acknowledge();
                 }
 
             });

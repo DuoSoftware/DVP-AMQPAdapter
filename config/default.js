@@ -9,15 +9,15 @@ module.exports = {
         },
     "Host":
         {
-            "subToAmqp": "true",
-            "amqpQueueName": "DashboardEvents",
+            "subToAmqp": "false",
+            "amqpQueueName": "EMAILOUT",
             "vdomain": "localhost",
             "domain": "localhost",
-            "port": "3637",
+            "port": "3653",
             "version": "1.0.0"
         },
     "Services" :
         {
-            "eventCallbackUrl": "http://localhost:2226/DashboardEvent/Event"
+            "eventCallbackUrl": "http://localhost:2223/resourceselection/executeHash"
         }
 }
