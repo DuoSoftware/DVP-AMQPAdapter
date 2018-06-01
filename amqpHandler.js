@@ -39,7 +39,7 @@ queueConnection.on('ready', function () {
                 ack: true,
                 prefetchCount: 10
             }, function (message, headers, deliveryInfo, ack) {
-                logger.info("%s: receive message:: %s", config.Host.amqpQueueName, message);
+                logger.info("%s: receive message:: %s", config.Host.amqpQueueName, JSON.stringify(message));
 
                 if(message) {
                     var options = {
