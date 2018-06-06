@@ -1,10 +1,10 @@
 module.exports = {
     "RabbitMQ":
         {
-            "ip": "138.197.90.92,162.243.81.39",
+            "ip": "",
             "port": 5672,
-            "user": "admin",
-            "password": "admin",
+            "user": "",
+            "password": "",
             "vhost":'/'
         },
     "Host":
